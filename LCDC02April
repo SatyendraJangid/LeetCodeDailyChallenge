@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
+        sort(potions.begin(),potions.end());
+        vector<int> ans;
+        //traverse spells array
+        int l = spells.size();
+        int x = potions.size();
+        //time complexity O(N*lon(N))
+        for(int i=0;i<l;i++){
+           int s = 0,e = potions.size()-1;
+           while(s<=e){
+               int mid = s+(e-s)/2;
+               long prod = (long) spells[i] * potions[mid];
+               if(prod<success){
+                  s = mid+1;
+               }
+               if(prod>=success){
+                   e = mid-1;
+               }
+           }
+           ans.push_back(x-s);
+        }
+        return ans;
+    }
+};
